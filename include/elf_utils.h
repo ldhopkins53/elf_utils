@@ -29,5 +29,6 @@ int find_text_segment(struct ElfHandle elf_handle);
 int find_data_segment(struct ElfHandle elf_handle);
 int find_note_segment(struct ElfHandle elf_handle);
 int find_section_index(const struct ElfHandle elf_handle, char *section_name);
+void catch_attached_debugger();
 
 #endif // COUNTER_INJECTION_ELF_UTILS_H

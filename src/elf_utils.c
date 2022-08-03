@@ -156,3 +156,14 @@ int find_section_index(const struct ElfHandle elf_handle, char *section_name) {
   }
   return -1;
 }
+
+/*
+ * Catch if a debugger is attached
+ */
+void catch_attached_debugger() {
+  if (ptrace(PTRACE_TRACEME, 0, 0, 0) < 0) {
+    printf("[-] A debugger is attached, bailing out\n");
+    kill(getpid());
+    exit(0);
+  }
+}

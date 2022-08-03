@@ -1,6 +1,7 @@
 #include <elf.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <sys/stat.h>
 #include <unistd.h>
 
@@ -136,11 +137,11 @@ int find_section_index(const struct ElfHandle elf_handle, char *section_name) {
       elf_handle.elf_header->e_shoff == 0) {
     fprintf(stderr, "[-] Unable to find a section in a binary with no section "
                     "header table\n");
-    return -1
+    return -1;
   }
   Elf64_Shdr *shdr = elf_handle.shdr_base;
   for (int i = 0; i < elf_handle.elf_header->e_shnum; ++i) {
-    if (strcmp(string_table + shdr->sh_name, section_name) == 0) {
+    if (strcmp(elf_handle.string_table + shdr->sh_name, section_name) == 0) {
       printf("[+] Found section (%s) at index: %d\n", section_name, i);
       return i;
     }

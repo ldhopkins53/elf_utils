@@ -1,7 +1,9 @@
 #include <elf.h>
+#include <signal.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <sys/ptrace.h>
 #include <sys/stat.h>
 #include <unistd.h>
 
@@ -163,7 +165,7 @@ int find_section_index(const struct ElfHandle elf_handle, char *section_name) {
 void catch_attached_debugger() {
   if (ptrace(PTRACE_TRACEME, 0, 0, 0) < 0) {
     printf("[-] A debugger is attached, bailing out\n");
-    kill(getpid());
+    kill(getpid(), SIGKILL);
     exit(0);
   }
 }

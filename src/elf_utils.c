@@ -12,7 +12,7 @@
 /*
  * Read a file into memory for later manipulation
  */
-struct ElfHandle read_elf_file(char *filename) {
+struct ElfHandle read_elf_file(const char *filename) {
   printf("[+] Reading %s\n", filename);
 
   // Get file size
@@ -93,7 +93,7 @@ void display_sections(const struct ElfHandle elf_handle) {
 /*
  * Find text segment index
  */
-int find_text_segment(struct ElfHandle elf_handle) {
+int find_text_segment(const struct ElfHandle elf_handle) {
   Elf64_Phdr *phdr = elf_handle.phdr_base;
   for (int text_phdr_index = 0;
        text_phdr_index < elf_handle.elf_header->e_phnum; ++text_phdr_index) {
@@ -109,7 +109,7 @@ int find_text_segment(struct ElfHandle elf_handle) {
 /*
  * Find the data segment index
  */
-int find_data_segment(struct ElfHandle elf_handle) {
+int find_data_segment(const struct ElfHandle elf_handle) {
   Elf64_Phdr *phdr = elf_handle.phdr_base;
   for (int data_phdr_index = 0;
        data_phdr_index < elf_handle.elf_header->e_phnum; ++data_phdr_index) {
@@ -126,7 +126,7 @@ int find_data_segment(struct ElfHandle elf_handle) {
 /*
  * Find a PT_NOTE segment index
  */
-int find_note_segment(struct ElfHandle elf_handle) {
+int find_note_segment(const struct ElfHandle elf_handle) {
   Elf64_Phdr *phdr = elf_handle.phdr_base;
   for (int note_phdr_index = 0;
        note_phdr_index < elf_handle.elf_header->e_phnum; ++note_phdr_index) {
@@ -142,7 +142,8 @@ int find_note_segment(struct ElfHandle elf_handle) {
 /*
  * Find a section by name
  */
-int find_section_index(const struct ElfHandle elf_handle, char *section_name) {
+int find_section_index(const struct ElfHandle elf_handle,
+                       const char *section_name) {
   if (elf_handle.elf_header->e_shnum == 0 ||
       elf_handle.elf_header->e_shoff == 0) {
     fprintf(stderr, "[-] Unable to find a section in a binary with no section "

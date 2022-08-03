@@ -21,14 +21,15 @@ struct ElfHandle {
   char *string_table;
 };
 
-struct ElfHandle read_elf_file(char *filename);
+struct ElfHandle read_elf_file(const char *filename);
 void cleanup_elf_file(struct ElfHandle elf_handle);
 int find_interpreter(struct ElfHandle elf_handle);
 void display_sections(struct ElfHandle elf_handle);
 int find_text_segment(struct ElfHandle elf_handle);
 int find_data_segment(struct ElfHandle elf_handle);
 int find_note_segment(struct ElfHandle elf_handle);
-int find_section_index(const struct ElfHandle elf_handle, char *section_name);
+int find_section_index(const struct ElfHandle elf_handle,
+                       const char *section_name);
 void catch_attached_debugger();
 
 #endif // COUNTER_INJECTION_ELF_UTILS_H

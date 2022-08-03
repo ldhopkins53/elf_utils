@@ -48,6 +48,14 @@ struct ElfHandle read_elf_file(char *filename) {
 }
 
 /*
+ * Cleanup any dynamically allocated parts created during reading in an ELF file
+ */
+void cleanup_elf_file(struct ElfHandle elf_handle) {
+  free(elf_handle.elf_file);
+  free(elf_handle.file_stat);
+}
+
+/*
  * Find and display the program interpreter
  */
 int find_interpreter(const struct ElfHandle elf_handle) {

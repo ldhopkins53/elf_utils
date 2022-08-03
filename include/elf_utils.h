@@ -22,6 +22,7 @@ struct ElfHandle {
 };
 
 struct ElfHandle read_elf_file(char *filename);
+void cleanup_elf_file(struct ElfHandle elf_handle);
 int find_interpreter(struct ElfHandle elf_handle);
 void display_sections(struct ElfHandle elf_handle);
 int find_text_segment(struct ElfHandle elf_handle);

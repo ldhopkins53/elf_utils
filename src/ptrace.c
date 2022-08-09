@@ -18,7 +18,7 @@ void ptrace_read(int pid, unsigned long addr, void *vptr, int len) {
     word = ptrace(PTRACE_PEEKTEXT, pid, addr + bytesRead, NULL);
     if (word == -1) {
       fprintf(stderr, "ptrace(PTRACE_PEEKTEXT) failed\n");
-      exit(1);
+      exit(EXIT_FAILURE);
     }
     bytesRead += sizeof(word);
     ptr[i++] = word;
@@ -37,7 +37,7 @@ void ptrace_write(int pid, unsigned long addr, void *vptr, int len) {
     word = ptrace(PTRACE_POKETEXT, pid, addr + byteCount, word);
     if (word == -1) {
       fprintf(stderr, "ptrace(PTRACE_POKETEXT) failed\n");
-      exit(1);
+      exit(EXIT_FAILURE);
     }
     byteCount += sizeof(word);
   }
